@@ -26,7 +26,7 @@ const Util = {
     },
 
     forEachApps: async (callback, serial = false) => {
-        const appsDir = "./apps";
+        const appsDir = "./packages";
         const apps = fs.readdirSync(appsDir);
         for (const item of apps) {
             const appDir = `${appsDir}/${item}`;

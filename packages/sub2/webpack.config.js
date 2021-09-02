@@ -17,6 +17,7 @@ const config = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist")
+        //publicPath: "http://localhost:8083/"
     },
     devServer: {
         open: true,
@@ -46,10 +47,7 @@ const config = {
                 "./Sub2": "./src/sub2.vue"
             },
             shared: {
-                vue: {
-                    eager: true,
-                    singleton: true
-                }
+                ... require("./package.json").dependencies
             }
         })
 

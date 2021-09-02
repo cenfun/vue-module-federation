@@ -7,6 +7,9 @@
     "build": "node ./scripts/build.js",
     "serve": "node ./scripts/serve.js"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-chain": "^1.0.4",

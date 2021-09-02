@@ -7,7 +7,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 
 const VueLoaderPlugin = require("vue-loader").VueLoaderPlugin;
 
-const isProduction = process.env.NODE_ENV == "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 
 const stylesHandler = MiniCssExtractPlugin.loader;
@@ -17,11 +17,12 @@ const config = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist")
+        //publicPath: "http://localhost:8081/"
     },
     devServer: {
         open: true,
         host: "localhost",
-        port: 8082
+        port: 8081
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -33,23 +34,21 @@ const config = {
         new MiniCssExtractPlugin(),
 
         new ModuleFederationPlugin({
-            name: "sub1",
-            filename: "sub1.js",
+            name: "app",
+            filename: "app.js",
             // library: {
             //     type: "var",
-            //     name: "sub1"
+            //     name: "app"
             // },
             remotes: {
-                app: "app@http://localhost:8081/app.js"
+                sub1: "sub1@http://localhost:8082/sub1.js",
+                sub2: "sub2@http://localhost:8083/sub2.js"
             },
             exposes: {
-                "./Sub1": "./src/sub1.vue"
+                "./Header": "./src/header.vue"
             },
             shared: {
-                vue: {
-                    eager: true,
-                    singleton: true
-                }
+                ... require("./package.json").dependencies
             }
         })
 
@@ -88,8 +87,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = "production";
-        
-        
+
+
     } else {
         config.mode = "development";
     }

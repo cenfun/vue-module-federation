@@ -17,11 +17,12 @@ const config = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist")
+        //publicPath: "http://localhost:8082/"
     },
     devServer: {
         open: true,
         host: "localhost",
-        port: 8081
+        port: 8082
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -33,24 +34,20 @@ const config = {
         new MiniCssExtractPlugin(),
 
         new ModuleFederationPlugin({
-            name: "app",
-            filename: "app.js",
+            name: "sub1",
+            filename: "sub1.js",
             // library: {
             //     type: "var",
-            //     name: "app"
+            //     name: "sub1"
             // },
             remotes: {
-                sub1: "sub1@http://localhost:8082/sub1.js",
-                sub2: "sub2@http://localhost:8083/sub2.js"
+                app: "app@http://localhost:8081/app.js"
             },
             exposes: {
-                "./Header": "./src/header.vue"
+                "./Sub1": "./src/sub1.vue"
             },
             shared: {
-                vue: {
-                    eager: true,
-                    singleton: true
-                }
+                ... require("./package.json").dependencies
             }
         })
 
@@ -89,8 +86,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = "production";
-
-
+        
+        
     } else {
         config.mode = "development";
     }
