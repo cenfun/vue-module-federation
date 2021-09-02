@@ -22,7 +22,7 @@ const config = {
     devServer: {
         open: true,
         host: 'localhost',
-        port: 8081,
+        port: 8083,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -34,14 +34,13 @@ const config = {
         new MiniCssExtractPlugin(),
 
         new ModuleFederationPlugin({
-            name: 'app',
-            filename: 'app.js',
+            name: 'sub2',
+            filename: 'sub2.js',
             remotes: {
-                sub1: 'sub1@http://localhost:8082/sub1.js',
-                sub2: 'sub2@http://localhost:8083/sub2.js',
+                app: 'app@http://localhost:8081/app.js',
             },
             exposes: {
-                './Header': './src/header.vue'
+                "./Sub2": "./src/sub2.vue"
             },
             shared: ['vue']
         }),
@@ -57,7 +56,7 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler, 'css-loader'],
+                use: [stylesHandler,'css-loader'],
             },
             {
                 test: /\.vue$/i,
@@ -81,8 +80,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-
-
+        
+        
     } else {
         config.mode = 'development';
     }

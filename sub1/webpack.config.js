@@ -40,9 +40,9 @@ const config = {
                 app: 'app@http://localhost:8081/app.js',
             },
             exposes: {
-                "./Sub1": "./src/sub.vue"
+                "./Sub1": "./src/sub1.vue"
             },
-            //shared: ['vue']
+            shared: ['vue']
         }),
 
         // Add your plugins here
