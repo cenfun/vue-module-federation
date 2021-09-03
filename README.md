@@ -15,6 +15,8 @@ Vue project base on webpack5 module federation plugin
 + npm run serve
 + npm run build
 
+## Deploy
+after built, all sub dist files will be copied to host dist folder.
 
 ## Link
 + https://webpack.js.org/plugins/module-federation-plugin/
