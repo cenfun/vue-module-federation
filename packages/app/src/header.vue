@@ -11,5 +11,7 @@ export default {
 <style lang="scss">
 .header {
     font-weight: bold;
+    font-size: 20px;
+    color: #333;
 }
 </style>

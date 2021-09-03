@@ -1,7 +1,9 @@
 <template>
     <div>app
         <Header></Header>
+        <div class="line"></div>
         <Sub1></Sub1>
+        <div class="line"></div>
         <Sub2></Sub2>
     </div>
 </template>
@@ -18,3 +20,9 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.line {
+    border-top: thin solid #ccc;
+    margin: 10px 0;
+}
+</style>
