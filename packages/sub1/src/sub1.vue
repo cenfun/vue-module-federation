@@ -2,6 +2,7 @@
   <div>
     sub1
     <Header></Header>
+    <div class="sub1-body">sub1 body</div>
   </div>
 </template>
 <script>
@@ -14,3 +15,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.sub1-body {
+    color: #0f0;
+}
+</style>

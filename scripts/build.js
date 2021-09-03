@@ -24,6 +24,8 @@ const buildModule = async () => {
                 const itemDistPath = Util.relativePath(path.resolve("./packages", itemName, "dist"));
                 const destPath = `${hostDistPath}/proxy/${itemName}`;
                 console.log(`copy ${itemDistPath} to ${destPath}`);
+                //only copy *.remote.js file? 
+                //and static files?
                 fse.copySync(itemDistPath, destPath);
             }
         }
