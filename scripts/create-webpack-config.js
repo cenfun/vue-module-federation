@@ -44,6 +44,21 @@ const generateProxy = (packageName) => {
     return proxy;
 };
 
+const getShared = (dependencies) => {
+    const shared = {};
+    if (dependencies) {
+        for (const k in dependencies) {
+            const v = dependencies[k];
+            //https://webpack.js.org/plugins/module-federation-plugin/
+            shared[k] = {
+                singleton: true,
+                version: v
+            };
+        }
+    }
+    return shared;
+};
+
 module.exports = (dir) => {
     const isProduction = process.env.NODE_ENV === "production";
 
@@ -60,6 +75,8 @@ module.exports = (dir) => {
     const remotes = generateRemotes(packageName);
     //console.log(remotes);
 
+    const shared = getShared(packageJson.dependencies);
+
     const MFP = {
         name: packageName,
         filename: getRemoteFilename(packageName),
@@ -69,9 +86,7 @@ module.exports = (dir) => {
         // },
         remotes: remotes,
         exposes: moduleConfig.exposes,
-        shared: {
-            ... packageJson.dependencies
-        }
+        shared: shared
     };
     console.log(MFP);
 
