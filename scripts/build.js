@@ -1,4 +1,4 @@
-const fs = require("fs");
+//const fs = require("fs");
 const path = require("path");
 const Util = require("./util.js");
 const fse = require("fs-extra");
@@ -28,7 +28,7 @@ const buildModule = async () => {
     const hostName = getHost();
     const hostDistPath = Util.relativePath(path.resolve("./packages", hostName, "dist"));
 
-    const hostFiles = fs.readdirSync(hostDistPath);
+    //const hostFiles = fs.readdirSync(hostDistPath);
 
     Object.keys(ModuleConfig).forEach(itemName => {
         if (itemName === hostName) {
