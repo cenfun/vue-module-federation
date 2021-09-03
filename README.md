@@ -22,11 +22,16 @@ Vue project base on webpack5 module federation plugin - A Micro-frontend Revolut
 + will start all servers, and remotes connect each server by proxy
 ## production
 + npm run build
-+ will copy remotes dist to host dist/proxy/[remote name]/*, see [build scripts](scripts/build.js)
++ deploy each app dist to standalone server with different port and connect by proxy
+
+## production with merged dist
++ npm run build
++ npm run merge
++ will copy remotes dist to host dist/proxy/[remote name]/*, see [merge scripts](scripts/merge.js)
     + app/dist/*
     + app/dist/proxy/sub1/*
     + app/dist/proxy/sub2/*
-+ deploy host dist
++ deploy host dist, no need proxy
 
 ## Link
 + https://webpack.js.org/plugins/module-federation-plugin/

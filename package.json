@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "node ./scripts/serve.js",
     "build": "node ./scripts/build.js",
-    "serve": "node ./scripts/serve.js"
+    "merge": "node ./scripts/merge.js"
   },
   "workspaces": [
     "packages/*"
