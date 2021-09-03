@@ -1,7 +1,10 @@
 const fs = require("fs");
+const path = require("path");
 const child_process = require("child_process");
 
 const Util = {
+
+    root: path.resolve(__dirname, "../"),
     
     exec: (command, options) => {
         return new Promise(resolve => {
@@ -25,17 +28,48 @@ const Util = {
         });
     },
 
-    forEachApps: async (callback, serial = false) => {
+    forEachPackage: async (callback, serial = false) => {
         const appsDir = "./packages";
         const apps = fs.readdirSync(appsDir);
+        if (serial) {
+            for (const item of apps) {
+                const appDir = `${appsDir}/${item}`;
+                await callback(appDir, item);
+            }
+            return;
+        }
+        const list = [];
         for (const item of apps) {
             const appDir = `${appsDir}/${item}`;
-            if (serial) {
-                await callback(appDir, item);
-            } else {
-                callback(appDir, item);
-            }
+            list.push(callback(appDir, item));
         }
+        return Promise.allSettled(list);
+    },
+
+    // \ to /
+    formatPath: function(str) {
+        if (str) {
+            str = str.replace(/\\/g, "/");
+        }
+        return str;
+    },
+
+    relativePath: function(p, root) {
+        p = `${p}`;
+        root = `${root || Util.root}`;
+        let rp = path.relative(root, p);
+        rp = Util.formatPath(rp);
+        return rp;
+    },
+
+    delay: function(ms) {
+        return new Promise((resolve) => {
+            if (ms) {
+                setTimeout(resolve, ms);
+            } else {
+                setImmediate(resolve);
+            }
+        });
     }
 };
 
