@@ -12,6 +12,7 @@ Vue project base on webpack5 module federation plugin
 
 
 ## CLI
++ npm install
 + npm run serve
 + npm run build
 
